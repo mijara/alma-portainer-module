@@ -221,30 +221,6 @@ angular.module('monitor', [])
                 $scope.cpuChart.removeData();
                 $scope.cpuChart.addData([value.cpu_usage], timestamp);
 
-                $scope.memCpuPoints.push([
-                    timeDate, 
-                    parseFloat(value.mem_usage), 
-                    parseFloat(value.cpu_usage),
-                ]);
-
-                var rxBytes = 0, txBytes = 0;
-
-                if (lastRx !== 0 || lastTx !== 0) {
-                    rxBytes = value.rx_bytes - lastRx;
-                    txBytes = value.tx_bytes - lastTx;
-                }
-                lastRx = value.rx_bytes;
-                lastTx = value.tx_bytes;
-
-                $scope.netPoints.push([
-                    timeDate, 
-                    parseInt(rxBytes), 
-                    parseInt(txBytes)
-                ]);
-
-                $scope.memCpuChart.updateOptions({ file: $scope.memCpuPoints });
-                $scope.netChart.updateOptions({ file: $scope.netPoints });
-
                 $scope.memChart.removeData();
                 $scope.memChart.addData([value.mem_usage], timestamp);
 
@@ -258,8 +234,6 @@ angular.module('monitor', [])
                 $scope.cpuChart.destroy();
                 $scope.memChart.destroy();
                 $scope.networkChart.destroy();
-                $scope.memCpuPoints = [];
-                $scope.netPoints = [];
 
                 lastRx = 0;
                 lastTx = 0;
